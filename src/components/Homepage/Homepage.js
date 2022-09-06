@@ -1,5 +1,8 @@
 // importing required packages and components
 import React from 'react';
+import underConstructionPic from './assets/underconstruction.jpg';
+import './Homepage.css';
+
 
 
 // define Homepage and use required components in it
@@ -9,7 +12,8 @@ const Homepage = () => {
       <br />
       <center>
         <h1>HomePage</h1>
-        <p>Website is under Construction...</p>
+        <br />
+        <img src={underConstructionPic} alt="underConstructionPic" className='underConst' />
       </center>
       <br />
     </div>
