@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
+export const API_BASE_URL = 'https://648a-39-35-8-104.ngrok.io';

@@ -22,10 +22,12 @@ const LogIn = () => {
 
   useEffect(() => {
     // Check if user is Admin or a customer for specific Dashboards
-    if (getTokenInStorage() && getUserRole() === 1) {
-      navigate('/admin/dashboard');
-    } else if (getTokenInStorage() && getUserRole() === 0) {
-      navigate('/user/dashboard');
+    if (getTokenInStorage() && (getUserRole() === 'ADMIN')) {
+      navigate('/dashboard');
+    } else if (getTokenInStorage() && getUserRole() === 'RECRUITER') {
+      navigate('/dashboard');
+    } else if (getTokenInStorage() && getUserRole() === 'WORKER') {
+      navigate('/dashboard');
     }
   }, [navigate])
 
@@ -76,10 +78,13 @@ const LogIn = () => {
           setUserInStorage(response.data.data.user);
 
           setFormData({ ...formData, isLoading: false });
-          if (getTokenInStorage() && getUserRole() === 1) {
-            navigate('/products');
-          } else if (getTokenInStorage() && getUserRole() === 0) {
-            navigate('/products');
+
+          if (getTokenInStorage() && (getUserRole() === 'ADMIN')) {
+            navigate('/dashboard');
+          } else if (getTokenInStorage() && getUserRole() === 'RECRUITER') {
+            navigate('/dashboard');
+          } else if (getTokenInStorage() && getUserRole() === 'WORKER') {
+            navigate('/dashboard');
           }
         })
         .catch(err => {

@@ -18,10 +18,12 @@ const SignUp = () => {
 
   useEffect(() => {
     // Check if user is Admin or a customer for specific Dashboards
-    if (getTokenInStorage() && getUserRole() === 1) {
-      navigate('/admin/dashboard');
-    } else if (getTokenInStorage() && getUserRole() === 0) {
-      navigate('/user/dashboard');
+    if (getTokenInStorage() && (getUserRole() === 'ADMIN')) {
+      navigate('/dashboard');
+    } else if (getTokenInStorage() && getUserRole() === 'RECRUITER') {
+      navigate('/dashboard');
+    } else if (getTokenInStorage() && getUserRole() === 'WORKER') {
+      navigate('/dashboard');
     }
   }, [navigate]);
 
@@ -32,14 +34,14 @@ const SignUp = () => {
     password: '',
     confirmPassword: '',
     phone: '',
-    country: '',
+    address: '',
     role: '',
     successMsg: false,
     errorMsg: false,
     loading: false
   });
 
-  const { firstName, lastName, email, role, password, confirmPassword, phone, country, successMsg, errorMsg, loading } = formData;
+  const { firstName, lastName, email, role, password, confirmPassword, phone, address, successMsg, errorMsg, loading } = formData;
 
   // Event Handlers
   const handleChange = (evt) => {
@@ -56,7 +58,7 @@ const SignUp = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     // Client Side Validation
-    if (isEmpty(firstName) || isEmpty(email) || isEmpty(role) || isEmpty(password) || isEmpty(confirmPassword) || isEmpty(phone) || isEmpty(country)) {
+    if (isEmpty(firstName) || isEmpty(email) || isEmpty(role) || isEmpty(password) || isEmpty(confirmPassword) || isEmpty(phone) || isEmpty(address)) {
       setFormData({
         ...formData,
         errorMsg: 'All fields are required'
@@ -73,24 +75,24 @@ const SignUp = () => {
       })
     } else {
 
-      const { firstName, lastName, email, password, phone, country, role } = formData;
+      const { firstName, lastName, email, password, phone, address, role } = formData;
 
-      const newUserData = { firstName, lastName, email, password, phone, country, role };
+      const newUserData = { firstName, lastName, email, password, phone, address, role };
 
       setFormData({ ...formData, loading: true });
 
       register(newUserData)
         .then((response) => {
-          console.log('Axios Registered Success', response);
+          console.log('User Registered Success', response);
           setFormData({
             ...formData,
             loading: false,
-            successMsg: response.data.successMessage,
+            successMsg: response.data.message,
           });
           navigate('/login');
         })
         .catch((err) => {
-          console.log('Axios Register error', err);
+          console.log('User Register error', err);
           setFormData({
             ...formData,
             loading: false,
@@ -146,8 +148,8 @@ const SignUp = () => {
             <input type="number" className="form-control bg-light text-secondary" id="phone" name="phone" value={phone} onChange={handleChange} required />
           </div>
           <div className="col-md-6">
-            <label for="country" className="form-label">Country</label>
-            <input type="text" className="form-control bg-light text-secondary" id="country" name="country" value={country} onChange={handleChange} required />
+            <label for="address" className="form-label">Address</label>
+            <input type="text" className="form-control bg-light text-secondary" id="address" name="address" value={address} onChange={handleChange} required />
           </div>
           <div className="col-md-12">
             <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3">Register</button>

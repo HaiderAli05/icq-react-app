@@ -11,7 +11,7 @@ export const register = async (data) => {
       'Content-Type': 'application/json',
     },
   };
-  const response = await axios.post(`${API_BASE_URL}/users`, data, config);
+  const response = await axios.post(`${API_BASE_URL}/api/users/signup`, data, config);
   return response;
 
 }
@@ -24,7 +24,7 @@ export const login = async (data) => {
       'Content-Type': 'application/json',
     },
   };
-  const response = await axios.post(`${API_BASE_URL}/api/user/login`, data, config);
+  const response = await axios.post(`${API_BASE_URL}/api/users/login`, data, config);
   return response;
 
 }
